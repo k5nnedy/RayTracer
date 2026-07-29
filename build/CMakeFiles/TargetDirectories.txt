@@ -1,3 +1,0 @@
-/Users/kennedy/RayTracer/build/CMakeFiles/main.dir
-/Users/kennedy/RayTracer/build/CMakeFiles/edit_cache.dir
-/Users/kennedy/RayTracer/build/CMakeFiles/rebuild_cache.dir

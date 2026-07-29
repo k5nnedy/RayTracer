@@ -1,0 +1,11 @@
+# personal scratch
+raytracernotes.md
+
+# C++ build
+/build/
+*.o
+*.out
+a.out
+
+#raw renderer output
+*.ppm
