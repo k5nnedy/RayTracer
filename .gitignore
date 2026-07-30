@@ -3,10 +3,10 @@ raytracernotes.md
 
 # C++ build
 /build/
+/bin
 *.o
 *.out
-a.out
-/bin
+
 
 #raw renderer output
 *.ppm
