@@ -6,6 +6,7 @@ raytracernotes.md
 *.o
 *.out
 a.out
+/bin
 
 #raw renderer output
 *.ppm
