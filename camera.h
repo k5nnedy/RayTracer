@@ -7,8 +7,8 @@ class camera {
 public:
 
     // Image:
-    double aspect_ratio = 1.0;  //Ratio of image width over height
-    int image_width = 100;      //Rendered image width pixel count
+    double  aspect_ratio    = 1.0;  //Ratio of image width over height
+    int     image_width     = 100;      //Rendered image width pixel count
 
     /* Public Camera parameters here */
     void render(const hittable& world) {
@@ -34,15 +34,15 @@ public:
 
 private:
     /*Private camera variables here */
-    int image_height;
-    point3 center;
-    point3 pixel00_loc;
-    vec3 pixel_delta_u;
-    vec3 pixel_delta_v;
+    int     image_height;   // Rendered Image height
+    point3  center;         // Camera center
+    point3  pixel00_loc;    // Location of pixel 0,0
+    vec3    pixel_delta_u;  // Offset of pixel to right
+    vec3    pixel_delta_v;  // Offset of pixel below
 
     void initialize() {
-        image_height = int(image_width/aspect_ratio);
-        image_height = (image_height > 1) ? 1 : image_height;
+        image_height = int(image_width / aspect_ratio);
+        image_height = (image_height < 1) ? 1 : image_height;
 
         center = point3(0, 0, 0);
 
@@ -56,13 +56,13 @@ private:
         auto viewport_v = vec3(0, -viewport_height, 0); // Vv Vector --> Top to bottom
 
         // Calculate the horizontal and vertical delta vectors from pixel to pixel
-        auto pixel_delta_u = viewport_u / image_width;
-        auto pixel_delta_v = viewport_v / image_height;
+        pixel_delta_u = viewport_u / image_width;
+        pixel_delta_v = viewport_v / image_height;
 
         // Location of upper left (0,0) pixel 
         auto viewport_upper_left = 
-        center - vec3(0, 0, focal_length) - viewport_u/2 - viewport_v/2;
-        auto pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
+            center - vec3(0, 0, focal_length) - viewport_u/2 - viewport_v/2;
+        pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
 
     }
 
