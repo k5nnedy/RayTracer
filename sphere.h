@@ -7,13 +7,16 @@
 class sphere : public hittable {
 
 public:
-    sphere(const point3& center, double radius) : center(center), radius(std::fmax(0, radius)) {}
+    sphere(const point3& center, double radius) : center(center), radius(std::fmax(0, radius)) {
+        // TODO: Must initialize the material ptr mat.
+    }
     
     bool hit(const ray& r, interval ray_t, hit_record& rec) const override {
         vec3 oc = center - r.origin();
         auto a = r.direction().length_squared();
         auto h = dot(r.direction(), oc);
         auto c = oc.length_squared() - radius * radius;
+        rec.mat = mat;
 
         // If discriminant is negative, our ray does not hit the sphere
         auto discriminant = h*h - a*c;
@@ -42,6 +45,7 @@ public:
 private:
     point3 center;
     double radius;
+    shared_ptr<material> mat;
 };
 
 #endif
