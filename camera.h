@@ -93,18 +93,19 @@ private:
         return vec3(random_double() - 0.5, random_double() - 0.5, 0);
     }
 
-    color ray_color(const ray& r, int depth, const hittable& world) {
+    color ray_color(const ray& r, int depth, const hittable& world) const {
         // If ray bounce is exceeded, no more light is gathered
         if (depth <= 0)
             return color(0,0,0);
 
         hit_record rec;
 
-        if(world.hit(r, interval(0.001, infinity), rec)) {
+        if (world.hit(r, interval(0.001, infinity), rec)) {
             ray scattered;
-            color attentuation;
-            if (rec.mat->scatter(r, rec, attentuation, scattered))
-                return attentuation * ray_color(scattered, depth-1, world);
+            color attenuation;
+            if (rec.mat->scatter(r, rec, attenuation, scattered)) {
+                return attenuation * ray_color(scattered, depth-1, world);
+            }
             return color(0,0,0);
         }
 
