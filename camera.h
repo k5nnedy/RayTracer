@@ -1,6 +1,10 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <chrono>
+#include <vector>
+#include <thread>
+#include <atomic>
 #include "hittable.h"
 #include "material.h"
 
@@ -19,10 +23,12 @@ public:
     double defocus_angle = 0;   // Variation of angle rays through each pixel
     double focus_dist    = 10;  // Distance from camera lookfrom point to perfect focus
 
-
     /* Public Camera parameters here */
     void render(const hittable& world) {
+        
         initialize();
+
+        auto t0 = std::chrono::steady_clock::now();
 
         std::cout<< "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
@@ -40,7 +46,9 @@ public:
 
             }
         }
-        std::clog << "\rDone.                .\n";
+        auto t1 = std::chrono::steady_clock::now();
+        std::chrono::duration<double> render_t = t1 - t0;
+        std::clog << "\rDone. Total render time: " << render_t.count() << " s       \n";
     }
 
 private:
@@ -55,6 +63,7 @@ private:
     vec3    defocus_disk_u;         // Defocus disk horizontal radius
     vec3    defocus_disk_v;         // Defocus disk vertical radius
 
+    
     void initialize() {
         image_height = int(image_width / aspect_ratio);
         image_height = (image_height < 1) ? 1 : image_height;
