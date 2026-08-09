@@ -7,6 +7,7 @@
 #include <memory>
 #include <cstdlib>
 #include <random>
+#include <atomic>
 
 // C++ std usings
 using std::make_shared;
