@@ -11,10 +11,13 @@ Final scene (about 485 spheres, materials vary), 1200x675, 100 spp, max depth: 5
 
 ## Raw Log
 
-| Date       | Commit Hash   | Build         | Threads    | spp | Time(s)   | Notes       |
-|------------|---------------|---------------|-----------:|----:|----------:|-------------|
-| 2026-08-04 |   <25cc2eb>   | Release (-O3) |          1 | 100 |  188.74   |  baseline   |
-| 2026-08-05 |   <25cc2eb>   | Release (-O0) |          1 | 100 |  4117.27  |  baseline   |
+| Date       | Commit Hash   | Build         | Threads| spp | Time(s)   | Notes                   |
+|------------|---------------|---------------|-------:|----:|----------:|-------------------------|
+| 2026-08-04 |   <25cc2eb>   | Release (-O3) |      1 | 100 |  188.74   | baseline                |
+| 2026-08-05 |   <25cc2eb>   | Release (-O0) |      1 | 100 |  4117.27  | baseline                |
+| 2026-08-08 |   <xxxxxxx>   | Release (-O3) |      1 | 100 |  322.20   | framebuffer (on battery — excluded from analysis) |
+| 2026-08-08 |   <xxxxxxx>   | Release (-O3) |      1 | 100 |  187.93   |  framebuffer addition   |
+
 
 ## Experiments
 

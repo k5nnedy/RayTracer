@@ -27,28 +27,34 @@ public:
     void render(const hittable& world) {
         
         initialize();
+        std::vector<color> frambuffer(image_height *image_width);
 
         auto t0 = std::chrono::steady_clock::now();
 
-        std::cout<< "P3\n" << image_width << ' ' << image_height << "\n255\n";
-
         for (int j = 0; j < image_height; j++) {
             std::clog <<"\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
-
             for (int i = 0; i < image_width; i++) {
                 color pixel_color(0,0,0);
-
                 for (int sample = 0; sample < samples_per_pixel; sample++) {
-                    ray r       = get_ray(i, j);
+                    ray r = get_ray(i, j);
                     pixel_color += ray_color(r, max_depth, world);
                 }
-                write_color(std::cout, pixel_samples_scale * pixel_color);
-
+                frambuffer[j * image_width + i] = pixel_samples_scale * pixel_color;
             }
         }
+
         auto t1 = std::chrono::steady_clock::now();
-        std::chrono::duration<double> render_t = t1 - t0;
-        std::clog << "\rDone. Total render time: " << render_t.count() << " s       \n";
+
+        std::cout<< "P3\n" << image_width << ' ' << image_height << "\n255\n";
+
+        // Serialize memory to file
+        for (const auto& px : frambuffer)
+            write_color(std::cout, px);
+        auto t2 = std::chrono::steady_clock::now();
+        std::chrono::duration<double> compute_s = t1 - t0;
+        std::chrono::duration<double> write_s = t2 - t1;
+        std::clog << "\rDone. Compute time: " << compute_s.count()
+                  << "s    Write: " << write_s.count() << "s        \n";
     }
 
 private:
