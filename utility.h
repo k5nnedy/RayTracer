@@ -27,7 +27,7 @@ inline double degrees_to_radians(double degrees) {
 inline double random_double() {
     static std::atomic<int> seed_counter{0};
     thread_local std::mt19937 generator(seed_counter.fetch_add(1));
-    static std::uniform_real_distribution<double> distribution(0.0, 1.0);
+    thread_local std::uniform_real_distribution<double> distribution(0.0, 1.0);
     return distribution(generator);
 }
 
